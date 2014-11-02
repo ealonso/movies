@@ -3,4 +3,28 @@
 
 <project name="movies-portlet-portlet" basedir="." default="deploy">
 	<import file="../build-common-portlet.xml" />
+
+    <path id="plugin-lib.classpath">
+        <path refid="portal.classpath" />
+        <fileset dir="docroot/WEB-INF/lib" includes="*.jar" />
+        <pathelement location="docroot/WEB-INF/classes" />
+        <pathelement location="classes" />
+    </path>
+
+    <target name="scan-movies" depends="compile">
+        <property name="movies.path" value="${basedir}/movies-path.properties" />
+
+        <java
+            classname="org.liferay.movies.ScanMovieFiles"
+            classpathref="plugin-lib.classpath"
+            fork="true"
+            newenvironment="true"
+        >
+            <arg value="${movies.path}" />
+            <jvmarg value="-Xmx512m" />
+            <jvmarg value="-Xss2048k" />
+            <jvmarg value="-Xdebug" />
+            <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005" />
+        </java>
+    </target>
 </project>

@@ -3,6 +3,6 @@
 
 <display>
 	<category name="category.sample">
-		<portlet id="movies-portlet" />
+		<portlet id="scan-movies-portlet" />
 	</category>
 </display>
